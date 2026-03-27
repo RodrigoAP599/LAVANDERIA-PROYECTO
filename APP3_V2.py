@@ -201,8 +201,4 @@ def update(data, clientes, clasif, start, end):
 # RUN
 # ======================================================
 if __name__ == "__main__":
-    app.run(
-        host="172.25.240.188",
-        port=8052,
-        debug=True
-    )
+    app.run_server(host="0.0.0.0", port=10000)
