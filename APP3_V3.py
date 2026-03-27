@@ -29,21 +29,21 @@ def load_data(contents):
         print("Error cargando archivo:", e)
         return pd.DataFrame()
     
-df.columns = df.columns.str.strip().str.upper()
+    df.columns = df.columns.str.strip().str.upper()
 
-# MAPEO FLEXIBLE
-rename_map = {
-    "CLIENTE ": "CLIENTE",
-    "CLIENTE": "CLIENTE",
-    "CLASIFICACIÓN L.TIME": "CLASIFICACION L.TIME",
-    "CLASIFICACION": "CLASIFICACION L.TIME",
-    "FECHA INGRESO": "FECHA INGRESO",
-    "FECHA DE INGRESO": "FECHA INGRESO",
-    "FECHA SALIDA": "FECHA DE SALIDA",
-    "COCHE ": "COCHE",
-}
+    # MAPEO FLEXIBLE
+    rename_map = {
+        "CLIENTE ": "CLIENTE",
+        "CLIENTE": "CLIENTE",
+        "CLASIFICACIÓN L.TIME": "CLASIFICACION L.TIME",
+        "CLASIFICACION": "CLASIFICACION L.TIME",
+        "FECHA INGRESO": "FECHA INGRESO",
+        "FECHA DE INGRESO": "FECHA INGRESO",
+        "FECHA SALIDA": "FECHA DE SALIDA",
+        "COCHE ": "COCHE",
+    }
 
-df.rename(columns=rename_map, inplace=True)
+    df.rename(columns=rename_map, inplace=True)
 
 # ======================================================
 # APP
