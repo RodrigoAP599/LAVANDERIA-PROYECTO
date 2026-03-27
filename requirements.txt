@@ -4,6 +4,7 @@ matplotlib
 seaborn
 openpyxl
 dash
+gunicorn
 
 
 
