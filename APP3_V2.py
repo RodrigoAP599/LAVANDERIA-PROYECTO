@@ -3,28 +3,47 @@ import dash
 from dash import dcc, html, Input, Output, dash_table
 import plotly.express as px
 
+app=dash.Dash(__name__)
+server=app.server #Modificacion
 # ======================================================
 # CARGA INICIAL
 # ======================================================
 FILE_PATH = "LEAD TIME LAVANDERIA ANALISIS.xlsx"
 
+# def load_data(path):
+#     try:
+#         df = pd.read_excel(path)
+#         # Normalizar nombres de columnas
+#         df.columns = df.columns.str.strip().str.upper()
+#         # Fechas
+#         df["FECHA INGRESO"] = pd.to_datetime(df.get("FECHA INGRESO"), errors="coerce")
+#         df["FECHA DE SALIDA"] = pd.to_datetime(df.get("FECHA DE SALIDA"), errors="coerce")
+#         # Lead time seguro
+#         if "LEAD TIME" not in df.columns:
+#             df["LEAD TIME"] = 1
+#         return df
+#     except Exception as e:
+#         print("Error cargando archivo:", e)
+#         return pd.DataFrame()
+
+# df_global = load_data(FILE_PATH)
+
 def load_data(path):
     try:
         df = pd.read_excel(path)
-        # Normalizar nombres de columnas
-        df.columns = df.columns.str.strip().str.upper()
-        # Fechas
-        df["FECHA INGRESO"] = pd.to_datetime(df.get("FECHA INGRESO"), errors="coerce")
-        df["FECHA DE SALIDA"] = pd.to_datetime(df.get("FECHA DE SALIDA"), errors="coerce")
-        # Lead time seguro
-        if "LEAD TIME" not in df.columns:
-            df["LEAD TIME"] = 1
-        return df
     except Exception as e:
         print("Error cargando archivo:", e)
         return pd.DataFrame()
 
-df_global = load_data(FILE_PATH)
+    df.columns = df.columns.str.strip().str.upper()
+
+    df["FECHA INGRESO"] = pd.to_datetime(df.get("FECHA INGRESO"), errors="coerce")
+    df["FECHA DE SALIDA"] = pd.to_datetime(df.get("FECHA DE SALIDA"), errors="coerce")
+
+    if "LEAD TIME" not in df.columns:
+        df["LEAD TIME"] = 1
+
+    return df
 
 # ======================================================
 # APP
