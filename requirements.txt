@@ -2,7 +2,7 @@ streamlit
 pandas
 matplotlib
 seaborn
-openpýx1
+openpyxl
 dash
 
 
