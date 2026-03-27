@@ -15,21 +15,39 @@ def load_data(contents):
 
         df = pd.read_excel(io.BytesIO(decoded))
 
+        # LIMPIAR COLUMNAS
         df.columns = df.columns.str.strip().str.upper()
 
-        df["FECHA INGRESO"] = pd.to_datetime(df.get("FECHA INGRESO"), errors="coerce")
-        df["FECHA DE SALIDA"] = pd.to_datetime(df.get("FECHA DE SALIDA"), errors="coerce")
+        # MAPEO FLEXIBLE
+        rename_map = {
+            "CLIENTE ": "CLIENTE",
+            "CLASIFICACIÓN L.TIME": "CLASIFICACION L.TIME",
+            "CLASIFICACION": "CLASIFICACION L.TIME",
+            "FECHA DE INGRESO": "FECHA INGRESO",
+            "FECHA SALIDA": "FECHA DE SALIDA",
+            "COCHE ": "COCHE",
+        }
 
+        df.rename(columns=rename_map, inplace=True)
+
+        # FECHAS
+        if "FECHA INGRESO" in df.columns:
+            df["FECHA INGRESO"] = pd.to_datetime(df["FECHA INGRESO"], errors="coerce")
+
+        if "FECHA DE SALIDA" in df.columns:
+            df["FECHA DE SALIDA"] = pd.to_datetime(df["FECHA DE SALIDA"], errors="coerce")
+
+        # LEAD TIME
         if "LEAD TIME" not in df.columns:
             df["LEAD TIME"] = 1
+
+        print("COLUMNAS:", df.columns.tolist())  # DEBUG
 
         return df
 
     except Exception as e:
         print("Error cargando archivo:", e)
         return pd.DataFrame()
-    
-    df.columns = df.columns.str.strip().str.upper()
 
     # MAPEO FLEXIBLE
     rename_map = {
