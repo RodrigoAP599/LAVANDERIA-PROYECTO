@@ -1,0 +1,3 @@
+web: gunicorn APP3_V2:app.server
+
+
